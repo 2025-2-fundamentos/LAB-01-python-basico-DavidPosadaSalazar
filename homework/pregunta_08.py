@@ -7,6 +7,19 @@ utilizar pandas, numpy o scipy.
 
 
 def pregunta_08():
+    associations = {}
+    with open("files/input/data.csv", "r") as file:
+        for line in file:
+            columns = line.split("\t")
+            letter = columns[0]
+            value = int(columns[1])
+            if value in associations:
+                if letter not in associations[value]:
+                    associations[value].append(letter)
+            else:
+                associations[value] = [letter]
+    result = [(key, sorted(associations[key])) for key in sorted(associations.keys())]
+    return result
     """
     Genere una lista de tuplas, donde el primer elemento de cada tupla
     contiene  el valor de la segunda columna; la segunda parte de la tupla

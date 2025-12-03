@@ -7,6 +7,33 @@ utilizar pandas, numpy o scipy.
 
 
 def pregunta_12():
+    sums = {}
+    with open("files/input/data.csv", "r") as file:
+        for line in file:
+            columns = line.strip().split("\t")
+            letter = columns[0]
+            parts = [p for p in columns[4].split(",") if p]
+            col5_sum = 0
+            for item in parts:
+                if ":" in item:
+                    # take the part after the last ':' and convert to int
+                    try:
+                        value = int(item.split(":")[-1])
+                    except ValueError:
+                        # skip malformed numbers
+                        continue
+                else:
+                    try:
+                        value = int(item)
+                    except ValueError:
+                        continue
+                col5_sum += value
+            if letter in sums:
+                sums[letter] += col5_sum
+            else:
+                sums[letter] = col5_sum
+    result = dict(sorted(sums.items()))
+    return result
     """
     Genere un diccionario que contengan como clave la columna 1 y como valor
     la suma de los valores de la columna 5 sobre todo el archivo.

@@ -7,6 +7,18 @@ utilizar pandas, numpy o scipy.
 
 
 def pregunta_04():
+    month_counts = {}
+    with open("files/input/data.csv", "r") as file:
+        for line in file:
+            columns = line.split("\t")
+            date = columns[2]
+            month = date[5:7]
+            if month in month_counts:
+                month_counts[month] += 1
+            else:
+                month_counts[month] = 1
+    result = sorted(month_counts.items())
+    return result
     """
     La columna 3 contiene una fecha en formato `YYYY-MM-DD`. Retorne la
     cantidad de registros por cada mes, tal como se muestra a continuación.
